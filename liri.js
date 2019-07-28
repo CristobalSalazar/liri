@@ -1,4 +1,4 @@
-const config = require('dotenv').config();
+require('dotenv').config();
 const axios = require('axios');
 const keys = require('./keys');
 const Spotify = require('node-spotify-api');
@@ -11,9 +11,10 @@ let input = '';
 for (let i = 3; i < process.argv.length; i++) {
   input += process.argv[i] + ' ';
 }
-input.trim()
+input = input.trim();
 
 main(command, input);
+
 
 function main(command, input) {
 
@@ -39,7 +40,7 @@ function main(command, input) {
       break;
     }
     default: {
-      log(`COMMAND NOT ${command} NOT RECOGNIZED`);
+      log(`COMMAND: ${command} : IS NOT RECOGNIZED`);
     }
   }
 }
@@ -82,15 +83,15 @@ function movieThis(input) {
   if (input === "") input = 'Mr. Nobody';
 
   axios.get(`http://www.omdbapi.com/?apikey=trilogy&t=${input}`)
-    .then(data => {
-      log('Title: ' + data.data.Title);
-      log('Year: ' + data.data.Year);
-      log('IMDB Rating: ' + data.data.imdbRating);
-      log('Rotten Tomatoes Rating: ' + data.data.Ratings[1].Value);
-      log('Country: ' + data.data.Country);
-      log('Language: ' + data.data.Language);
-      log('Plot: ' + data.data.Plot);
-      log('Actors: ' + data.data.Actors);
+    .then(res => {
+      log('Title: ' + res.data.Title);
+      log('Year: ' + res.data.Year);
+      log('IMDB Rating: ' + res.data.imdbRating);
+      log('Rotten Tomatoes Rating: ' + res.data.Ratings[1].Value);
+      log('Country: ' + res.data.Country);
+      log('Language: ' + res.data.Language);
+      log('Plot: ' + res.data.Plot);
+      log('Actors: ' + res.data.Actors);
       log('------------------');
     });
 }
